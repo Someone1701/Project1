@@ -7,6 +7,11 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
+<!-- Satisfy Font -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap" rel="stylesheet">
+
 <style>
 *{
   margin:0;
@@ -50,8 +55,12 @@ body{
   50%{transform:scale(1.2);}
 }
 
+/* UPDATED MESSAGE FONT */
 .message{
-  font-size:24px;
+  font-family: "Satisfy", cursive;
+  font-size:30px;
+  letter-spacing:1px;
+  line-height:1.6;
   margin:25px 0;
   opacity:0;
   transition:opacity 1s ease;
@@ -195,7 +204,6 @@ body{
   color: rgba(255, 255, 255, 0.6);
 }
 
-/* Volume Control */
 .volume-control {
   display: flex;
   align-items: center;
@@ -230,15 +238,12 @@ body{
   .music-player {
     padding: 15px 20px;
   }
-  
   .song-title {
     font-size: 14px;
   }
-  
   .song-artist {
     font-size: 11px;
   }
-  
   .play-pause-btn {
     width: 45px;
     height: 45px;
@@ -252,18 +257,15 @@ body{
 
 <canvas id="stars"></canvas>
 
-<!-- Music Player -->
 <div class="music-player">
   <div class="player-info">
     <div class="song-title">High On You</div>
     <div class="song-artist">MY LOVE</div>
   </div>
-  
   <div class="player-controls">
     <button class="play-pause-btn" id="playPauseBtn">
       <span id="playPauseIcon">▶</span>
     </button>
-    
     <div class="timeline-container">
       <div class="timeline" id="timeline">
         <div class="timeline-progress" id="timelineProgress"></div>
@@ -274,7 +276,6 @@ body{
       </div>
     </div>
   </div>
-  
   <div class="volume-control">
     <span class="volume-icon">🔊</span>
     <div class="volume-slider" id="volumeSlider">
@@ -287,23 +288,15 @@ body{
   <div class="heart">❤️</div>
   <div class="message">In a universe full of stars,</div>
   <div class="photo"><img src="WhatsApp Image 2026-02-02 at 01.46.53.jpeg"></div>
-
-  
   <div class="message">you are the brightest one.</div>
-
   <div class="photo"><img src="WhatsApp Image 2026-02-02 at 01.46.54.jpeg"></div>
-
   <div class="message">Every moment with you</div>
   <div class="message">is a gift I'll treasure forever.</div>
-
   <div class="photo"><img src="WhatsApp Image 2026-02-02 at 01.46.55.jpeg"></div>
   <div class="photo"><img src="WhatsApp Image 2026-02-06 at 21.23.43.jpeg"></div>
-
   <div class="message">You are my heart,</div>
   <div class="message">my world, my everything.</div>
-
   <div class="photo"><img src="WhatsApp Image 2026-02-06 at 21.23.43c.jpeg"></div>
-
   <div class="message">Happy Valentine's Day,</div>
   <div class="message">my MOMO</div>
   <div class="message">my Dal Baati</div>
@@ -314,10 +307,8 @@ body{
   <div class="message">❤️ I LOVE YOU ❤️</div>
 </div>
 
-<!-- Audio Element -->
 <audio id="audioPlayer" preload="metadata">
   <source src="https://github.com/Someone1701/Project1/raw/refs/heads/main/High%20On%20You%20Jind%20Universe%20(pagalall.com).mp3" type="audio/mpeg">
-  Your browser does not support the audio element.
 </audio>
 
 <script>
@@ -365,80 +356,69 @@ elements.forEach(el=>{
   delay+=1200;
 });
 
-/* Music Player Functionality */
-const audio = document.getElementById('audioPlayer');
-const playPauseBtn = document.getElementById('playPauseBtn');
-const playPauseIcon = document.getElementById('playPauseIcon');
-const timeline = document.getElementById('timeline');
-const timelineProgress = document.getElementById('timelineProgress');
-const currentTimeEl = document.getElementById('currentTime');
-const durationEl = document.getElementById('duration');
-const volumeSlider = document.getElementById('volumeSlider');
-const volumeProgress = document.getElementById('volumeProgress');
+/* Music Player */
+const audio=document.getElementById('audioPlayer');
+const playPauseBtn=document.getElementById('playPauseBtn');
+const playPauseIcon=document.getElementById('playPauseIcon');
+const timeline=document.getElementById('timeline');
+const timelineProgress=document.getElementById('timelineProgress');
+const currentTimeEl=document.getElementById('currentTime');
+const durationEl=document.getElementById('duration');
+const volumeSlider=document.getElementById('volumeSlider');
+const volumeProgress=document.getElementById('volumeProgress');
 
-let isPlaying = false;
+let isPlaying=false;
 
-// Format time
-function formatTime(seconds) {
-  const mins = Math.floor(seconds / 60);
-  const secs = Math.floor(seconds % 60);
-  return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+function formatTime(seconds){
+  const mins=Math.floor(seconds/60);
+  const secs=Math.floor(seconds%60);
+  return `${mins}:${secs<10?'0':''}${secs}`;
 }
 
-// Play/Pause toggle
-playPauseBtn.addEventListener('click', () => {
-  if (isPlaying) {
+playPauseBtn.addEventListener('click',()=>{
+  if(isPlaying){
     audio.pause();
-    playPauseIcon.textContent = '▶';
-  } else {
+    playPauseIcon.textContent='▶';
+  }else{
     audio.play();
-    playPauseIcon.textContent = '⏸';
+    playPauseIcon.textContent='⏸';
   }
-  isPlaying = !isPlaying;
+  isPlaying=!isPlaying;
 });
 
-// Update duration when metadata is loaded
-audio.addEventListener('loadedmetadata', () => {
-  durationEl.textContent = formatTime(audio.duration);
+audio.addEventListener('loadedmetadata',()=>{
+  durationEl.textContent=formatTime(audio.duration);
 });
 
-// Update progress bar and current time
-audio.addEventListener('timeupdate', () => {
-  const progress = (audio.currentTime / audio.duration) * 100;
-  timelineProgress.style.width = `${progress}%`;
-  currentTimeEl.textContent = formatTime(audio.currentTime);
+audio.addEventListener('timeupdate',()=>{
+  const progress=(audio.currentTime/audio.duration)*100;
+  timelineProgress.style.width=`${progress}%`;
+  currentTimeEl.textContent=formatTime(audio.currentTime);
 });
 
-// Click on timeline to seek
-timeline.addEventListener('click', (e) => {
-  const rect = timeline.getBoundingClientRect();
-  const clickX = e.clientX - rect.left;
-  const percentage = clickX / rect.width;
-  audio.currentTime = percentage * audio.duration;
+timeline.addEventListener('click',(e)=>{
+  const rect=timeline.getBoundingClientRect();
+  const clickX=e.clientX-rect.left;
+  const percentage=clickX/rect.width;
+  audio.currentTime=percentage*audio.duration;
 });
 
-// Volume control
-volumeSlider.addEventListener('click', (e) => {
-  const rect = volumeSlider.getBoundingClientRect();
-  const clickX = e.clientX - rect.left;
-  const percentage = clickX / rect.width;
-  audio.volume = percentage;
-  volumeProgress.style.width = `${percentage * 100}%`;
+volumeSlider.addEventListener('click',(e)=>{
+  const rect=volumeSlider.getBoundingClientRect();
+  const clickX=e.clientX-rect.left;
+  const percentage=clickX/rect.width;
+  audio.volume=percentage;
+  volumeProgress.style.width=`${percentage*100}%`;
 });
 
-// Reset when song ends
-audio.addEventListener('ended', () => {
-  isPlaying = false;
-  playPauseIcon.textContent = '▶';
-  audio.currentTime = 0;
+audio.addEventListener('ended',()=>{
+  isPlaying=false;
+  playPauseIcon.textContent='▶';
+  audio.currentTime=0;
 });
 
-// Set initial volume
-audio.volume = 0.7;
+audio.volume=0.7;
 </script>
 
 </body>
-
 </html>
-
-
